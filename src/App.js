@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Survey } from "survey-react-ui";
+import "survey-core/modern.min.css";
+import { Model } from "survey-core";
 
-function App() {
+const App = () => {
+  const surveyJson = {
+    title: "Customer Feedback Survey",
+    questions: [
+      {
+        type: "text",
+        name: "customerName",
+        title: "What is your name?",
+      },
+      {
+        type: "dropdown",
+        name: "productSatisfaction",
+        title: "How satisfied are you with the product?",
+        choices: ["Very Satisfied", "Satisfied", "Neutral", "Unsatisfied", "Very Unsatisfied"]
+      },
+      {
+        type: "rating",
+        name: "productRating",
+        title: "Please rate the product:",
+        rateMax: 5
+      }
+    ]
+  };
+
+  const survey = new Model(surveyJson);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{survey.title}</h1>
+      <Survey model={survey} />
     </div>
   );
-}
+};
 
 export default App;
